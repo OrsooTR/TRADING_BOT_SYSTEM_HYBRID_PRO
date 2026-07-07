@@ -1,0 +1,2 @@
+tf,fft_line,filter_action,strength_threshold,smooth_period,d1_period,d2_period,d1_threshold,d2_threshold,sl_atr_mult,rr,train_trades,train_win_rate,train_profit_factor,train_max_drawdown_pct,train_pnl_pct,oos_trades,oos_win_rate,oos_profit_factor,oos_max_drawdown_pct,oos_pnl_pct,total_trades
+M15,fft_w96_p4,avoid,1.5,10,2,2,0.05,0.0,1.5,2.0,31,32.25806451612903,0.8479050517292379,9.788197603556668,-3.5495551972815287,344,32.26744186046512,0.8767003863079104,39.79471240649058,-29.873216565920124,375

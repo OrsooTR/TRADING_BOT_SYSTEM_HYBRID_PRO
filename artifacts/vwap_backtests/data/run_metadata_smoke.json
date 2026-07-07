@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-04-28 09:45:57 UTC",
+  "mode": "smoke",
+  "zip_paths": [
+    "C:\\Users\\Ciruzz\\Downloads\\Progetto Trading Files\\HISTDATA_COM_ASCII_EURUSD_M12020.zip",
+    "C:\\Users\\Ciruzz\\Downloads\\Progetto Trading Files\\HISTDATA_COM_ASCII_EURUSD_M12021.zip",
+    "C:\\Users\\Ciruzz\\Downloads\\Progetto Trading Files\\HISTDATA_COM_ASCII_EURUSD_M12022.zip",
+    "C:\\Users\\Ciruzz\\Downloads\\Progetto Trading Files\\HISTDATA_COM_ASCII_EURUSD_M12023.zip",
+    "C:\\Users\\Ciruzz\\Downloads\\Progetto Trading Files\\HISTDATA_COM_ASCII_EURUSD_M12024.zip",
+    "C:\\Users\\Ciruzz\\Downloads\\Progetto Trading Files\\HISTDATA_COM_ASCII_EURUSD_M12025.zip"
+  ],
+  "timeframes": {
+    "M1": {
+      "rows": 4,
+      "train_bars": 92363,
+      "oos_bars": 91871,
+      "best_oos_pf": 1.8646989704034413,
+      "best_oos_dd_pct": 15.334993790667435
+    }
+  }
+}

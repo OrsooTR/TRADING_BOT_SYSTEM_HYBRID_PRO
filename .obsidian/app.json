@@ -1,0 +1,13 @@
+{
+  "userIgnoreFilters": [
+    "node_modules/",
+    ".claude/",
+    "**/__pycache__/",
+    "artifacts/**/*.csv",
+    "artifacts/**/*.json",
+    "artifacts/**/*.xlsx",
+    "artifacts/**/*.pdf",
+    "assets/pdfs/examples/",
+    "assets/pdfs/*.pdf.md"
+  ]
+}

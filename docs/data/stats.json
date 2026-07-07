@@ -1,0 +1,650 @@
+{
+  "generated_at": "2026-07-07T18:03:43.028261+00:00",
+  "project": "TRADING_BOT_SYSTEM_HYBRID_PRO",
+  "files": {
+    "total_files": 367,
+    "total_size": 300738578,
+    "python_loc": 6992,
+    "markdown_words": 129526,
+    "by_category": {
+      "Altro": {
+        "files": 2,
+        "size": 1399
+      },
+      "Script": {
+        "files": 4,
+        "size": 2825
+      },
+      "Markdown": {
+        "files": 197,
+        "size": 859296
+      },
+      "PDF": {
+        "files": 61,
+        "size": 16646014
+      },
+      "Excel": {
+        "files": 1,
+        "size": 718411
+      },
+      "CSV": {
+        "files": 48,
+        "size": 254492216
+      },
+      "JSON": {
+        "files": 20,
+        "size": 15230766
+      },
+      "Binari": {
+        "files": 1,
+        "size": 11685940
+      },
+      "Testo": {
+        "files": 2,
+        "size": 170903
+      },
+      "Log": {
+        "files": 1,
+        "size": 1672
+      },
+      "Immagini": {
+        "files": 6,
+        "size": 578657
+      },
+      "Python": {
+        "files": 23,
+        "size": 334519
+      },
+      "PineScript": {
+        "files": 1,
+        "size": 15960
+      }
+    },
+    "by_folder": {
+      "(root)": {
+        "files": 7,
+        "size": 7986
+      },
+      ".github": {
+        "files": 1,
+        "size": 959
+      },
+      "artifacts": {
+        "files": 125,
+        "size": 291217984
+      },
+      "assets": {
+        "files": 6,
+        "size": 1348518
+      },
+      "Pipeline_01": {
+        "files": 198,
+        "size": 7761311
+      },
+      "scripts": {
+        "files": 19,
+        "size": 332530
+      },
+      "src": {
+        "files": 9,
+        "size": 48863
+      },
+      "tradingview": {
+        "files": 2,
+        "size": 20427
+      }
+    },
+    "recent_files": [
+      {
+        "path": "scripts/vault_weekly_reporter.py",
+        "size": 32864,
+        "mtime": "2026-07-07T18:01:58.690545+00:00"
+      },
+      {
+        "path": "src/derivatives_bt/session_vwap.py",
+        "size": 15473,
+        "mtime": "2026-07-07T18:01:32.400683+00:00"
+      },
+      {
+        "path": "scripts/build_daily_report_pdf.py",
+        "size": 17065,
+        "mtime": "2026-07-07T18:01:28.660657+00:00"
+      },
+      {
+        "path": "scripts/run_derivatives_full.py",
+        "size": 15564,
+        "mtime": "2026-07-07T18:00:51.403467+00:00"
+      },
+      {
+        "path": "scripts/run_volatility_regime_gate_vectorized.py",
+        "size": 27694,
+        "mtime": "2026-07-07T17:59:57.874268+00:00"
+      },
+      {
+        "path": "scripts/run_fft_clock_filter_grid.py",
+        "size": 18884,
+        "mtime": "2026-07-07T17:59:41.200632+00:00"
+      },
+      {
+        "path": "scripts/run_vwap_session_grid.py",
+        "size": 11957,
+        "mtime": "2026-07-07T17:59:12.077803+00:00"
+      },
+      {
+        "path": "scripts/run_derivative_grid.py",
+        "size": 11955,
+        "mtime": "2026-07-07T17:59:02.424416+00:00"
+      },
+      {
+        "path": "Pipeline_01/09_LOGS/code_review_2026-07-07.md",
+        "size": 5651,
+        "mtime": "2026-07-07T17:58:46.497403+00:00"
+      },
+      {
+        "path": "scripts/run_regime_classifier.py",
+        "size": 23970,
+        "mtime": "2026-07-07T17:58:38.016443+00:00"
+      },
+      {
+        "path": "scripts/run_fractal_fft.py",
+        "size": 21089,
+        "mtime": "2026-07-07T17:58:00.631413+00:00"
+      },
+      {
+        "path": "scripts/run_confluence.py",
+        "size": 22571,
+        "mtime": "2026-07-07T17:57:41.327592+00:00"
+      },
+      {
+        "path": "scripts/run_clock_filter.py",
+        "size": 22176,
+        "mtime": "2026-07-07T17:57:21.259759+00:00"
+      },
+      {
+        "path": "scripts/run_fft_cycle_vectorized.py",
+        "size": 17681,
+        "mtime": "2026-07-07T17:57:00.413641+00:00"
+      },
+      {
+        "path": "scripts/run_ribbon_vectorized.py",
+        "size": 12719,
+        "mtime": "2026-07-07T17:55:32.593783+00:00"
+      },
+      {
+        "path": "scripts/run_atr_vectorized.py",
+        "size": 12099,
+        "mtime": "2026-07-07T17:55:19.648554+00:00"
+      },
+      {
+        "path": "scripts/generate_dashboard_stats.py",
+        "size": 7605,
+        "mtime": "2026-07-07T17:51:05.591274+00:00"
+      },
+      {
+        "path": "README.md",
+        "size": 1993,
+        "mtime": "2026-07-07T17:50:31.357055+00:00"
+      },
+      {
+        "path": ".github/workflows/deploy-pages.yml",
+        "size": 959,
+        "mtime": "2026-07-07T17:50:19.877029+00:00"
+      },
+      {
+        "path": ".gitignore",
+        "size": 440,
+        "mtime": "2026-07-07T17:47:01.725793+00:00"
+      },
+      {
+        "path": "artifacts/vault_reporting/vault_weekly_reporter.log",
+        "size": 1672,
+        "mtime": "2026-06-04T14:40:31+00:00"
+      },
+      {
+        "path": "artifacts/vault_reporting/rendicontazione_settimanale_2026-06-01_2026-06-07.pdf",
+        "size": 10000,
+        "mtime": "2026-06-04T14:39:40+00:00"
+      },
+      {
+        "path": "Pipeline_01/09_LOGS/WEEKLY_REPORTS/rendicontazione_settimanale_2026-06-01_2026-06-07.md",
+        "size": 12989,
+        "mtime": "2026-06-04T14:39:39+00:00"
+      },
+      {
+        "path": "artifacts/vault_reporting/rendicontazione_settimanale_2026-05-25_2026-05-31.pdf",
+        "size": 9915,
+        "mtime": "2026-06-04T14:37:21+00:00"
+      },
+      {
+        "path": "artifacts/vault_reporting/reporter_state.json",
+        "size": 99,
+        "mtime": "2026-06-04T14:37:21+00:00"
+      }
+    ]
+  },
+  "project_state": {
+    "strategies": [
+      {
+        "name": "MA Crossover",
+        "status": "testato",
+        "note": "testato, insight utile come regime filter, non sufficiente come entry standalone"
+      },
+      {
+        "name": "Derivate 1/2 ordine",
+        "status": "testato",
+        "note": "testato, PF 2.70 su M5, segnale momentum forte"
+      },
+      {
+        "name": "RSI Mean-Reversion",
+        "status": "testato",
+        "note": "testato, 77% profittevoli, piu robusto"
+      },
+      {
+        "name": "BB Squeeze",
+        "status": "testato",
+        "note": "testato, edge debole, utile come filtro regime"
+      },
+      {
+        "name": "Fractal S/R Bounce",
+        "status": "testato",
+        "note": "testato, 68% profittevoli, precision entry M1"
+      },
+      {
+        "name": "VWAP Trend Trading",
+        "status": "testato",
+        "note": "testato, 68% profittevoli M1, bias giornaliero"
+      },
+      {
+        "name": "ATR Channel Breakout",
+        "status": "testato",
+        "note": "testato (2026-05-07), 10% profittevoli M15, debole - regime filter"
+      },
+      {
+        "name": "EMA Ribbon Direction",
+        "status": "testato",
+        "note": "testato (2026-05-07), 30% profittevoli M15, filtro direzionale London"
+      },
+      {
+        "name": "FFT Dominant Cycle",
+        "status": "testato",
+        "note": "testato (2026-05-07), 52% profittevoli M15, London N=256 - prerequisito validato per Layer FFT"
+      },
+      {
+        "name": "Volatility Regime Gate",
+        "status": "testato",
+        "note": "testato (2026-05-08), forte su RSI low-vol, moderato su Derivate high-vol - primo meta-filtro validato"
+      },
+      {
+        "name": "FFT Cycle Prediction",
+        "status": "da fare",
+        "note": "concetto centrale del bot, ancora non validato nel vault"
+      },
+      {
+        "name": "Fractal FFT Pattern Projection",
+        "status": "da fare",
+        "note": "nuova idea candidata, non ancora implementata"
+      }
+    ],
+    "state_updated": "2026-05-08"
+  },
+  "backlog": [
+    {
+      "id": "#12",
+      "title": "FFT Spectral Regime Classifier",
+      "priority": 1,
+      "priority_title": "Regime e filtri del layer FFT",
+      "done": false
+    },
+    {
+      "id": "#15",
+      "title": "Volatility Regime Gate",
+      "priority": 1,
+      "priority_title": "Regime e filtri del layer FFT",
+      "done": true
+    },
+    {
+      "id": "#16",
+      "title": "Jump / Spike Filter",
+      "priority": 1,
+      "priority_title": "Regime e filtri del layer FFT",
+      "done": false
+    },
+    {
+      "id": "#14",
+      "title": "FFT Clock Trigger HFT Filter",
+      "priority": 1,
+      "priority_title": "Regime e filtri del layer FFT",
+      "done": false
+    },
+    {
+      "id": "#17",
+      "title": "FFT + Derivative Confluence",
+      "priority": 2,
+      "priority_title": "Primo ibrido operativo",
+      "done": false
+    },
+    {
+      "id": "#13",
+      "title": "Butterworth Filter as Trend Signal",
+      "priority": 3,
+      "priority_title": "Estensioni e confronto tecnico",
+      "done": false
+    },
+    {
+      "id": "#09",
+      "title": "Session Time Cluster",
+      "priority": 3,
+      "priority_title": "Estensioni e confronto tecnico",
+      "done": false
+    },
+    {
+      "id": "#18",
+      "title": "Fractal + FFT Confluence",
+      "priority": 4,
+      "priority_title": "Confluenze avanzate",
+      "done": false
+    },
+    {
+      "id": "#19",
+      "title": "FFT Regime + Strategy Routing",
+      "priority": 4,
+      "priority_title": "Confluenze avanzate",
+      "done": false
+    },
+    {
+      "id": "#20",
+      "title": "Seasonal ECM Exogenous Signal",
+      "priority": 5,
+      "priority_title": "Ricerca avanzata (fase finale)",
+      "done": false
+    },
+    {
+      "id": "#21",
+      "title": "Momentum Volume Lifecycle",
+      "priority": 5,
+      "priority_title": "Ricerca avanzata (fase finale)",
+      "done": false
+    },
+    {
+      "id": "#22",
+      "title": "FFT Trend Following",
+      "priority": 5,
+      "priority_title": "Ricerca avanzata (fase finale)",
+      "done": false
+    }
+  ],
+  "strategies": {
+    "tested": [
+      {
+        "file": "Pipeline_01/03_STRATEGIES/TESTED/01_MA_Crossover.md",
+        "title": "01 - MA Crossover",
+        "decision": null
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/TESTED/02_Derivative_1st_2nd_Order.md",
+        "title": "02 - Derivative 1st and 2nd Order",
+        "decision": null
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/TESTED/03_RSI_MeanReversion.md",
+        "title": "03 — RSI Mean-Reversion",
+        "decision": null
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/TESTED/04_BB_Squeeze.md",
+        "title": "04 — Bollinger Band Squeeze + Breakout",
+        "decision": null
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/TESTED/05_Fractal_SR_Bounce.md",
+        "title": "05 — Fractal Support & Resistance Bounce",
+        "decision": null
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/TESTED/06_VWAP_TrendTrading.md",
+        "title": "06 — VWAP Trend Trading",
+        "decision": null
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/TESTED/07_ATR_Channel_Breakout.md",
+        "title": "07 — ATR Channel Breakout",
+        "decision": null
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/TESTED/08_EMA_Ribbon_Direction.md",
+        "title": "08 — EMA Ribbon Direction Filter",
+        "decision": null
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/TESTED/11_FFT_Dominant_Cycle.md",
+        "title": "11 — FFT Dominant Cycle",
+        "decision": null
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/TESTED/12_FFT_Spectral_Regime_Classifier.md",
+        "title": "12 — FFT Spectral Regime Classifier",
+        "decision": null
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/TESTED/14_FFT_Clock_Trigger_HFT_Filter.md",
+        "title": "14 — FFT Clock Trigger HFT Filter",
+        "decision": null
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/TESTED/15_Volatility_Regime_Gate.md",
+        "title": "15 - Volatility Regime Gate",
+        "decision": "- `#15 Volatility Regime Gate` = **testato e validato**\n- promuovere il ramo `RSI + low vol gate` come baseline per futuri confronti con `#12 FFT Spectral Regime Classifier`\n- mantenere `Derivative + high vol gate` come supporto utile ma non ancora decisivo"
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/TESTED/17_FFT_Derivative_Confluence.md",
+        "title": "17 — FFT + Derivative Confluence",
+        "decision": null
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/TESTED/18_Fractal_FFT_Confluence.md",
+        "title": "18 — Fractal + FFT Confluence",
+        "decision": null
+      }
+    ],
+    "ideas": [
+      {
+        "file": "Pipeline_01/03_STRATEGIES/IDEAS/atr_channel_breakout.md",
+        "title": "atr channel breakout"
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/IDEAS/butterworth_trend_filter.md",
+        "title": "butterworth trend filter"
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/IDEAS/fft_clock_trigger_hft_filter.md",
+        "title": "fft clock trigger hft filter"
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/IDEAS/fft_derivative_confluence.md",
+        "title": "fft derivative confluence"
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/IDEAS/fft_dominant_cycle.md",
+        "title": "fft dominant cycle"
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/IDEAS/fft_spectral_regime_filter.md",
+        "title": "fft spectral regime filter"
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/IDEAS/fft_trend_following.md",
+        "title": "fft trend following"
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/IDEAS/fractal_circular_confluence.md",
+        "title": "fractal circular confluence"
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/IDEAS/fractal_fft_pattern_projection.md",
+        "title": "fractal fft pattern projection"
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/IDEAS/jump_spike_filter.md",
+        "title": "jump spike filter"
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/IDEAS/momentum_volume_lifecycle.md",
+        "title": "momentum volume lifecycle"
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/IDEAS/seasonal_ecm_exogenous_signal.md",
+        "title": "seasonal ecm exogenous signal"
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/IDEAS/session_time_cluster.md",
+        "title": "session time cluster"
+      },
+      {
+        "file": "Pipeline_01/03_STRATEGIES/IDEAS/volatility_regime_gate.md",
+        "title": "volatility regime gate"
+      }
+    ]
+  },
+  "backtests": [
+    {
+      "name": "Atr",
+      "dir": "artifacts/atr_backtests",
+      "data_files": 5,
+      "reports": [
+        "artifacts/atr_backtests/reports/atr_report_all_tfs.md",
+        "artifacts/atr_backtests/reports/atr_report_m1.md",
+        "artifacts/atr_backtests/reports/atr_report_m15.md",
+        "artifacts/atr_backtests/reports/atr_report_m5.md"
+      ],
+      "size": 675208,
+      "last_run": "2026-05-11T09:47:07+00:00"
+    },
+    {
+      "name": "Clock",
+      "dir": "artifacts/clock_backtests",
+      "data_files": 6,
+      "reports": [
+        "artifacts/clock_backtests/reports/clock_report_all_tfs.md",
+        "artifacts/clock_backtests/reports/clock_report_m1.md",
+        "artifacts/clock_backtests/reports/clock_report_m15.md",
+        "artifacts/clock_backtests/reports/clock_report_m5.md"
+      ],
+      "size": 578862,
+      "last_run": "2026-05-11T09:47:07+00:00"
+    },
+    {
+      "name": "Confluence",
+      "dir": "artifacts/confluence_backtests",
+      "data_files": 4,
+      "reports": [
+        "artifacts/confluence_backtests/reports/confluence_report_all_tfs.md",
+        "artifacts/confluence_backtests/reports/confluence_report_m15.md",
+        "artifacts/confluence_backtests/reports/confluence_report_m5.md"
+      ],
+      "size": 12282094,
+      "last_run": "2026-05-11T09:47:07+00:00"
+    },
+    {
+      "name": "Derivative",
+      "dir": "artifacts/derivative_backtests",
+      "data_files": 8,
+      "reports": [
+        "artifacts/derivative_backtests/reports/derivatives_report_all_tfs.md",
+        "artifacts/derivative_backtests/reports/derivatives_report_all_tfs_smoke.md",
+        "artifacts/derivative_backtests/reports/derivatives_report_m15_full.md",
+        "artifacts/derivative_backtests/reports/derivatives_report_m15_smoke.md",
+        "artifacts/derivative_backtests/reports/derivatives_report_m1_smoke.md",
+        "artifacts/derivative_backtests/reports/derivatives_report_m5_smoke.md"
+      ],
+      "size": 124847381,
+      "last_run": "2026-05-11T09:47:08+00:00"
+    },
+    {
+      "name": "Fft Clock Filter",
+      "dir": "artifacts/fft_clock_filter_backtests",
+      "data_files": 4,
+      "reports": [
+        "artifacts/fft_clock_filter_backtests/reports/fft_clock_filter_report_m15.md"
+      ],
+      "size": 11689275,
+      "last_run": "2026-05-11T09:47:09+00:00"
+    },
+    {
+      "name": "Fft Cycle",
+      "dir": "artifacts/fft_cycle_backtests",
+      "data_files": 5,
+      "reports": [
+        "artifacts/fft_cycle_backtests/reports/fft_cycle_report_all_tfs.md",
+        "artifacts/fft_cycle_backtests/reports/fft_cycle_report_m1.md",
+        "artifacts/fft_cycle_backtests/reports/fft_cycle_report_m15.md",
+        "artifacts/fft_cycle_backtests/reports/fft_cycle_report_m5.md"
+      ],
+      "size": 955117,
+      "last_run": "2026-05-11T09:47:09+00:00"
+    },
+    {
+      "name": "Fractal Fft",
+      "dir": "artifacts/fractal_fft_backtests",
+      "data_files": 4,
+      "reports": [
+        "artifacts/fractal_fft_backtests/reports/fractal_fft_report_all_tfs.md",
+        "artifacts/fractal_fft_backtests/reports/fractal_fft_report_m1.md",
+        "artifacts/fractal_fft_backtests/reports/fractal_fft_report_m5.md"
+      ],
+      "size": 1374167,
+      "last_run": "2026-05-11T09:47:09+00:00"
+    },
+    {
+      "name": "Regime",
+      "dir": "artifacts/regime_backtests",
+      "data_files": 6,
+      "reports": [
+        "artifacts/regime_backtests/reports/regime_report_all_tfs.md",
+        "artifacts/regime_backtests/reports/regime_report_m1.md",
+        "artifacts/regime_backtests/reports/regime_report_m15.md",
+        "artifacts/regime_backtests/reports/regime_report_m5.md"
+      ],
+      "size": 617783,
+      "last_run": "2026-05-11T09:47:09+00:00"
+    },
+    {
+      "name": "Ribbon",
+      "dir": "artifacts/ribbon_backtests",
+      "data_files": 5,
+      "reports": [
+        "artifacts/ribbon_backtests/reports/ribbon_report_all_tfs.md",
+        "artifacts/ribbon_backtests/reports/ribbon_report_m1.md",
+        "artifacts/ribbon_backtests/reports/ribbon_report_m15.md",
+        "artifacts/ribbon_backtests/reports/ribbon_report_m5.md"
+      ],
+      "size": 678337,
+      "last_run": "2026-05-11T09:47:09+00:00"
+    },
+    {
+      "name": "Volatility Gate",
+      "dir": "artifacts/volatility_gate_backtests",
+      "data_files": 14,
+      "reports": [
+        "artifacts/volatility_gate_backtests/reports/volatility_gate_report_all.md",
+        "artifacts/volatility_gate_backtests/reports/volatility_gate_report_all_robust.md",
+        "artifacts/volatility_gate_backtests/reports/volatility_gate_report_derivative.md",
+        "artifacts/volatility_gate_backtests/reports/volatility_gate_report_derivative_robust.md",
+        "artifacts/volatility_gate_backtests/reports/volatility_gate_report_rsi.md",
+        "artifacts/volatility_gate_backtests/reports/volatility_gate_report_rsi_robust.md"
+      ],
+      "size": 4420172,
+      "last_run": "2026-05-11T09:47:09+00:00"
+    },
+    {
+      "name": "Vwap",
+      "dir": "artifacts/vwap_backtests",
+      "data_files": 5,
+      "reports": [
+        "artifacts/vwap_backtests/reports/vwap_session_report_all_tfs_smoke.md",
+        "artifacts/vwap_backtests/reports/vwap_session_report_m1_smoke.md"
+      ],
+      "size": 123364038,
+      "last_run": "2026-05-11T09:47:10+00:00"
+    }
+  ]
+}

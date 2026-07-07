@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Dati di mercato grezzi troppo grandi per GitHub (>100 MB)
+artifacts/derivative_backtests/data/eurusd_m1_2020_2025_combined.csv
+artifacts/vwap_backtests/data/eurusd_m1_2020_2025_combined.csv
+*.pkl
+
+# Obsidian: stato locale della UI (non conoscenza)
+.obsidian/workspace.json
+.obsidian/graph.json
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store

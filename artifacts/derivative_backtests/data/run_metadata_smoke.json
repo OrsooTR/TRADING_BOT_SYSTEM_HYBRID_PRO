@@ -1,0 +1,35 @@
+{
+  "generated_at": "2026-04-22 09:53:44 UTC",
+  "mode": "smoke",
+  "zip_paths": [
+    "C:\\Users\\Ciruzz\\Downloads\\HISTDATA_COM_ASCII_EURUSD_M12020.zip",
+    "C:\\Users\\Ciruzz\\Downloads\\HISTDATA_COM_ASCII_EURUSD_M12021.zip",
+    "C:\\Users\\Ciruzz\\Downloads\\HISTDATA_COM_ASCII_EURUSD_M12022.zip",
+    "C:\\Users\\Ciruzz\\Downloads\\HISTDATA_COM_ASCII_EURUSD_M12023.zip",
+    "C:\\Users\\Ciruzz\\Downloads\\HISTDATA_COM_ASCII_EURUSD_M12024.zip",
+    "C:\\Users\\Ciruzz\\Downloads\\HISTDATA_COM_ASCII_EURUSD_M12025.zip"
+  ],
+  "timeframes": {
+    "M1": {
+      "rows": 4,
+      "train_bars": 92363,
+      "oos_bars": 91871,
+      "best_oos_pf": 0.0,
+      "best_oos_dd_pct": 0.0
+    },
+    "M5": {
+      "rows": 4,
+      "train_bars": 18500,
+      "oos_bars": 18444,
+      "best_oos_pf": 0.0,
+      "best_oos_dd_pct": 0.0
+    },
+    "M15": {
+      "rows": 4,
+      "train_bars": 6168,
+      "oos_bars": 6148,
+      "best_oos_pf": 0.3398694531902659,
+      "best_oos_dd_pct": 6.380061275996093
+    }
+  }
+}

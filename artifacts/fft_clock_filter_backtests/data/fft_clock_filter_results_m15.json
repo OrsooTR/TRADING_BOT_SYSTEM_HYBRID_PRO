@@ -1,0 +1,26 @@
+[
+  {
+    "tf":"M15",
+    "fft_line":"fft_w96_p4",
+    "filter_action":"avoid",
+    "strength_threshold":1.5,
+    "smooth_period":10,
+    "d1_period":2,
+    "d2_period":2,
+    "d1_threshold":0.05,
+    "d2_threshold":0.0,
+    "sl_atr_mult":1.5,
+    "rr":2.0,
+    "train_trades":31,
+    "train_win_rate":32.2580645161,
+    "train_profit_factor":0.8479050517,
+    "train_max_drawdown_pct":9.7881976036,
+    "train_pnl_pct":-3.5495551973,
+    "oos_trades":344,
+    "oos_win_rate":32.2674418605,
+    "oos_profit_factor":0.8767003863,
+    "oos_max_drawdown_pct":39.7947124065,
+    "oos_pnl_pct":-29.8732165659,
+    "total_trades":375
+  }
+]

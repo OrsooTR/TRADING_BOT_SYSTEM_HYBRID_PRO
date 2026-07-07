@@ -1,0 +1,29 @@
+# 12. Glossario operativo
+
+- **Aliasing**: piegatura delle alte frequenze su bande piu' basse quando il campionamento e' insufficiente.
+- **Ampiezza**: intensita' di una componente spettrale o di una oscillazione.
+- **Band-limited**: processo con energia concentrata in una o piu' bande limitate.
+- **Butterworth**: filtro con risposta monotona e transizione controllata.
+- **Characteristic function**: trasformata complessa della distribuzione.
+- **Curvatura**: misura della variazione della pendenza.
+- **Cutoff**: frequenza di taglio di un filtro.
+- **DFT**: trasformata discreta di Fourier.
+- **Dead space**: zona spettrale di bassa o nulla energia.
+- **Drawdown**: discesa dal massimo al valore corrente.
+- **FFT**: algoritmo veloce per calcolare la DFT.
+- **Frattale**: forma che conserva identita' sotto trasformazioni di scala o ripetizione.
+- **IFFT**: trasformata inversa discreta.
+- **Lag**: ritardo introdotto da un filtro.
+- **Lévy process**: processo con incrementi indipendenti e stazionari.
+- **Low-pass**: filtro che conserva le frequenze basse.
+- **Momentum**: intensita' e continuita' del movimento.
+- **Nyquist**: frequenza minima di campionamento per evitare aliasing.
+- **Parseval**: uguaglianza dell'energia tra dominio del tempo e della frequenza.
+- **Phase**: informazione di traslazione temporale.
+- **Pivot**: punto di svolta locale nel prezzo.
+- **Reconstruction**: ricostruzione del segnale filtrato.
+- **Risk management**: controllo di perdita, leva e esposizione.
+- **Sharpe ratio**: misura di rendimento corretto per il rischio.
+- **Spectral density**: distribuzione dell'energia sulle frequenze.
+- **Subordination**: composizione di processi con un tempo casuale.
+- **Wiener-Kolmogorov**: formulazione ottimale per l'estrazione del segnale.

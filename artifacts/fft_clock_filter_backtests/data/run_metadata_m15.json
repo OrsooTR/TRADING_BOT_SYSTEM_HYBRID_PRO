@@ -1,0 +1,50 @@
+{
+  "generated_at": "2026-04-29 09:27:43 UTC",
+  "timeframe": "M15",
+  "train_bars": 96191,
+  "oos_bars": 49866,
+  "combinations": 1,
+  "single_process": true,
+  "fft_feature_specs": [
+    [
+      96,
+      4
+    ],
+    [
+      96,
+      16
+    ],
+    [
+      192,
+      16
+    ],
+    [
+      192,
+      96
+    ]
+  ],
+  "best": {
+    "tf": "M15",
+    "fft_line": "fft_w96_p4",
+    "filter_action": "avoid",
+    "strength_threshold": 1.5,
+    "smooth_period": 10,
+    "d1_period": 2,
+    "d2_period": 2,
+    "d1_threshold": 0.05,
+    "d2_threshold": 0.0,
+    "sl_atr_mult": 1.5,
+    "rr": 2.0,
+    "train_trades": 31,
+    "train_win_rate": 32.25806451612903,
+    "train_profit_factor": 0.8479050517292379,
+    "train_max_drawdown_pct": 9.788197603556668,
+    "train_pnl_pct": -3.5495551972815287,
+    "oos_trades": 344,
+    "oos_win_rate": 32.26744186046512,
+    "oos_profit_factor": 0.8767003863079104,
+    "oos_max_drawdown_pct": 39.79471240649058,
+    "oos_pnl_pct": -29.873216565920124,
+    "total_trades": 375
+  }
+}
