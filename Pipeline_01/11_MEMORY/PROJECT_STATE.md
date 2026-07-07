@@ -2,7 +2,7 @@
 title: Project State
 type: project_memory
 priority: critical
-updated: 2026-05-08
+updated: 2026-07-07
 ---
 
 # Project State
@@ -55,6 +55,19 @@ Oggi il progetto non e ancora un bot eseguibile. E soprattutto una knowledge bas
 - Volatility Regime Gate: testato (2026-05-08), forte su RSI low-vol, moderato su Derivate high-vol - primo meta-filtro validato
 - FFT Cycle Prediction: concetto centrale del bot, ancora non validato nel vault
 - Fractal FFT Pattern Projection: nuova idea candidata, non ancora implementata
+
+## ⚠️ Rigenerazione 2026-07-07 con motore corretto
+La code review del 2026-07-07 ([[../09_LOGS/code_review_2026-07-07]]) ha rivelato che i PF
+storici erano gonfiati (tie-break TP/SL ottimistico) e le sessioni shiftate di 5h (fuso EST).
+Le 8 famiglie vettoriali sono state rigenerate con motore onesto (spread 0.5 pip, tie
+pessimistico, timeout mark-to-market) — numeri e lettura in
+[[../09_LOGS/report_giornata_2026-07-07]]. Sintesi:
+- le entry standalone su M1/M5 muoiono coi costi (PF < 1), la classifica di robustezza
+  storica non è più affidabile
+- reggono i **filtri di contesto su M15**: Regime FFT su RSI (PF 1.22), Volatility Gate
+  RSI low-vol (delta PF +2.78 M15) e soprattutto **Confluence #17: PF OOS 2.19, DD 5.2%**
+- caveat #17: ~9 trade/anno, sotto il criterio >50/anno → da allargare prima della promozione
+- le note TESTED restano coi numeri storici finché non vengono riscritte
 
 ## Priorita operativa aggiornata
 - completare `#12 FFT Spectral Regime Classifier` come primo modulo FFT di regime

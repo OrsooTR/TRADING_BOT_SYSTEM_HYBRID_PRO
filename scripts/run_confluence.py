@@ -21,7 +21,7 @@ from pathlib import Path
 from zipfile import ZipFile
 from itertools import product
 from numpy.lib.stride_tricks import sliding_window_view
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 
 ROOT = Path(__file__).resolve().parent.parent
 HISTDATA_DIR = Path(os.environ.get("HISTDATA_DIR", ROOT / "data" / "histdata"))
@@ -29,6 +29,7 @@ ZIPS = [HISTDATA_DIR / f"HISTDATA_COM_ASCII_EURUSD_M1{y}.zip"
         for y in [2020,2021,2022,2023,2024,2025]]
 OUT_DIR = ROOT / "artifacts" / "confluence_backtests" / "data"
 RPT_DIR = ROOT / "artifacts" / "confluence_backtests" / "reports"
+COMBINED_CSV = ROOT / "artifacts" / "derivative_backtests" / "data" / "eurusd_m1_2020_2025_combined.csv"
 
 # ── Grid ─────────────────────────────────────────────────────────────────────
 FFT_NS         = {"M5": [64, 128], "M15": [64, 128]}
@@ -47,6 +48,8 @@ SESSION_H  = {"all":(0,24),"london":(7,16),"newyork":(13,21),"asian":(0,8)}
 TRAIN_S, TRAIN_E = "2020-01-01", "2020-12-31 23:59:59"
 OOS_S,   OOS_E   = "2021-01-01", "2025-12-31 23:59:59"
 RISK = 0.01
+SPREAD_PIP = float(os.environ.get("SPREAD_PIP", "0.5"))  # costo spread round-trip in pip
+SPREAD = SPREAD_PIP * 1e-4
 MAX_HOLD_TF = {"M5":300,"M15":200}
 
 # Bande fisse per regime (#12)
@@ -58,6 +61,11 @@ CYCLE_HI_PCT  = 0.80   # escludi rumore puro
 
 # ── Data ─────────────────────────────────────────────────────────────────────
 def load_m1(zips):
+    if not all(z.exists() for z in zips):
+        # fallback: CSV combinato locale (stesso formato EST degli zip HistData)
+        df = pd.read_csv(COMBINED_CSV, parse_dates=["datetime"], index_col="datetime")
+        df = df.sort_index()
+        return df[~df.index.duplicated()]
     frames=[]
     for z in zips:
         with ZipFile(z) as zf:
@@ -183,7 +191,7 @@ def compute_fft_features(log_ret: np.ndarray, N: int) -> dict:
     }
 
 # ── Simulation ────────────────────────────────────────────────────────────────
-def sim_and_metrics(eb, all_d, ep, sl_d, rr, high, low, max_hold):
+def sim_and_metrics(eb, all_d, ep, sl_d, rr, high, low, close, max_hold):
     n=len(eb)
     if n==0:
         return {"trades":0,"win_rate":0.,"profit_factor":0.,
@@ -200,7 +208,12 @@ def sim_and_metrics(eb, all_d, ep, sl_d, rr, high, low, max_hold):
     sl_b=np.where(sl_hit.any(1),np.argmax(sl_hit,1),mj)
     # tie-break pessimistico: se TP e SL cadono nella stessa barra conta lo SL
     win=(tp_b<sl_b)&(tp_b<mj); lose=(sl_b<=tp_b)&(sl_b<mj)
-    pnl_r=np.where(win,rr,np.where(lose,-1.,0.))
+    # timeout: chiusura mark-to-market sull'ultima barra simulata invece di 0R
+    last_bar=np.minimum(eb+mj-1,N-1)
+    mtm_r=all_d*(close[last_bar]-ep)/np.maximum(sl_d,1e-12)
+    pnl_r=np.where(win,rr,np.where(lose,-1.,np.clip(mtm_r,-1.,rr)))
+    # costo spread per trade espresso in R (spread / distanza SL)
+    pnl_r=pnl_r-SPREAD/np.maximum(sl_d,1e-12)
     eq=1.; peak=1.; mx_dd=0.
     for r in pnl_r:
         eq*=(1+RISK*r)
@@ -214,7 +227,7 @@ def sim_and_metrics(eb, all_d, ep, sl_d, rr, high, low, max_hold):
             "profit_factor":round(pf,4),"max_drawdown_pct":round(mx_dd,2),
             "pnl_pct":round((eq-1)*100,2),"longs":int(li.sum()),"shorts":int(si.sum())}
 
-def run_signals(ls, ss, gate, sm, valid, op, atr, sl_mult, rr, high, low, mh):
+def run_signals(ls, ss, gate, sm, valid, op, atr, sl_mult, rr, high, low, close, mh):
     act=gate & sm & valid
     li=np.where(ls & act)[0]; si=np.where(ss & act)[0]
     all_i=np.concatenate([li,si]); all_d=np.concatenate([np.ones(len(li)),-np.ones(len(si))])
@@ -224,7 +237,7 @@ def run_signals(ls, ss, gate, sm, valid, op, atr, sl_mult, rr, high, low, mh):
     order=np.argsort(all_i,kind="stable")
     all_i=all_i[order]; all_d=all_d[order]
     eb=np.minimum(all_i+1,len(op)-1)
-    return sim_and_metrics(eb, all_d, op[eb], sl_mult*atr[all_i], rr, high, low, mh)
+    return sim_and_metrics(eb, all_d, op[eb], sl_mult*atr[all_i], rr, high, low, close, mh)
 
 # ── Main grid ─────────────────────────────────────────────────────────────────
 PARAM_COLS = ["tf","filter_mode","fft_n","delta","min_period","pwr_thresh",
@@ -260,7 +273,7 @@ def run_grid(df, tf, fft_cache: dict) -> list[dict]:
 
             # BASELINE: solo derivata
             m = run_signals(ls_d, ss_d, valid_base, sm, valid_base,
-                            op, atr, sl_m, rr, high, low, mh)
+                            op, atr, sl_m, rr, high, low, close, mh)
             results.append({**dict(zip(PARAM_COLS,
                 [tf,"baseline",0,0.,0,0.,ema_p,sl_m,rr,sess])), **m,
                 "trade_reduction_pct":0., "regime_pct":0.})
@@ -301,14 +314,14 @@ def run_grid(df, tf, fft_cache: dict) -> list[dict]:
 
                 # Mode B: FFT cycle direction only
                 m = run_signals(long_fft, short_fft, valid, sm, valid,
-                                op, atr, sl_m, rr, high, low, mh)
+                                op, atr, sl_m, rr, high, low, close, mh)
                 results.append({**row_base,
                     "filter_mode":"fft_cycle_only", **m,
                     "trade_reduction_pct":tr_pct, "regime_pct":cyc_pct})
 
                 # Mode C: full confluence
                 m = run_signals(long_full, short_full, valid, sm, valid,
-                                op, atr, sl_m, rr, high, low, mh)
+                                op, atr, sl_m, rr, high, low, close, mh)
                 results.append({**row_base,
                     "filter_mode":"full_confluence", **m,
                     "trade_reduction_pct":tr_pct, "regime_pct":cyc_pct})
@@ -414,7 +427,7 @@ def write_report(label, df, ts):
 # ── Main ──────────────────────────────────────────────────────────────────────
 def main():
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    ts = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
+    ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
     print("Loading M1 data..."); t0 = time.time()
     m1 = load_m1(ZIPS)
     print(f"  {len(m1)} bars in {time.time()-t0:.1f}s")

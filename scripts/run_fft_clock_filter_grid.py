@@ -7,7 +7,7 @@ import math
 import os
 import sys
 from dataclasses import dataclass
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 import backtrader as bt
@@ -387,7 +387,7 @@ def main() -> None:
     DATA_ROOT.mkdir(parents=True, exist_ok=True)
     REPORT_ROOT.mkdir(parents=True, exist_ok=True)
 
-    timestamp = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
+    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
     combined_csv = PROJECT_ROOT / "artifacts" / "derivative_backtests" / "data" / "eurusd_m1_2020_2025_combined.csv"
     if combined_csv.exists():
         merged_m1 = pd.read_csv(combined_csv, parse_dates=["datetime"]).set_index("datetime")

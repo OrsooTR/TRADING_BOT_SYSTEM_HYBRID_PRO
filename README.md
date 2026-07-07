@@ -1,5 +1,8 @@
 # Trading Bot System — Hybrid Pro
 
+![CI](https://github.com/OrsooTR/TRADING_BOT_SYSTEM_HYBRID_PRO/actions/workflows/ci.yml/badge.svg)
+![Pages](https://github.com/OrsooTR/TRADING_BOT_SYSTEM_HYBRID_PRO/actions/workflows/deploy-pages.yml/badge.svg)
+
 Vault di ricerca e sviluppo per un bot di trading quant ibrido basato su **FFT** (cicli e regime),
 **derivate** (timing e direzione) e **pattern frattali** (struttura multiscala), con motore
 decisionale e risk management.
@@ -30,8 +33,16 @@ Backlog: [DEVELOPMENT_BACKLOG](Pipeline_01/11_MEMORY/DEVELOPMENT_BACKLOG.md)
 
 ## Dashboard
 
-La dashboard in `docs/` mostra: KPI del progetto, stato strategie e backlog, famiglie di
-backtest con report, file recenti e attività GitHub live (auto-refresh ogni 60 s).
+La dashboard in `docs/` mostra: KPI del progetto, torte per categorie e stato strategie,
+**confronto multi-metrica tra strategie** (PF/win rate/DD/trade del best setup OOS +
+robustezza dell'intera griglia), **scatter di ottimizzazione** (PF vs ogni parametro e
+frontiera rischio/rendimento, per individuare le combinazioni migliori), stato backtest,
+file recenti e attività GitHub (live API + feed di build come fallback anti rate-limit).
+
+Il motore vettoriale applica: tie-break TP/SL pessimistico, spread configurabile
+(`SPREAD_PIP`, default 0.5 pip), chiusura mark-to-market dei trade in timeout e sessioni
+corrette per il fuso EST di HistData. Smoke test: `python tests/test_smoke.py` (eseguito
+in CI ad ogni push).
 
 Le statistiche (`docs/data/stats.json`) vengono rigenerate **ad ogni push** e una volta al
 giorno dal workflow [deploy-pages.yml](.github/workflows/deploy-pages.yml). In locale:

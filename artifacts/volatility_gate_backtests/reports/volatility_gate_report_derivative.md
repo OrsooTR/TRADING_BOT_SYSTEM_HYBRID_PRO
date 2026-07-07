@@ -8,7 +8,7 @@
 - [[../../../Pipeline_01/04_BACKTEST/INDEX]]
 - [[../../../Pipeline_01/09_LOGS/esperimenti]]
 
-- Generated: 2026-05-08 09:32:18 UTC
+- Generated: 2026-07-07 18:26:08 UTC
 - Train: 2020
 - OOS: 2021-2025
 - Gate implementation: rolling ATR(14) quantile thresholds (percentile proxy) with no-trade in the middle zone
@@ -22,22 +22,22 @@
 - TF: M15
 - Lookback: 200
 - Threshold: 0.80
-- OOS delta PF: 0.1041
-- OOS gated PF: 1.1028
-- OOS base PF: 0.9987
-- OOS trade reduction: 81.82%
+- OOS delta PF: 0.1367
+- OOS gated PF: 0.9837
+- OOS base PF: 0.8470
+- OOS trade reduction: 80.86%
 
 ## Top 10
 
 | Rank | Family | TF | Lkbk | Thr | Train dPF | OOS dPF | OOS Base PF | OOS Gated PF | OOS Trade Red % |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | derivative_high_vol | M15 | 200 | 0.80 | 0.3361 | 0.1041 | 0.9987 | 1.1028 | 81.82 |
-| 2 | derivative_high_vol | M15 | 200 | 0.80 | 0.4312 | 0.1001 | 0.9858 | 1.0859 | 80.86 |
-| 3 | derivative_high_vol | M15 | 100 | 0.80 | 0.2945 | 0.0882 | 0.9858 | 1.0740 | 81.81 |
-| 4 | derivative_high_vol | M15 | 100 | 0.70 | 0.3339 | 0.0874 | 0.9846 | 1.0720 | 71.68 |
-| 5 | derivative_high_vol | M15 | 200 | 0.80 | 0.3011 | 0.0857 | 0.9989 | 1.0846 | 81.67 |
-| 6 | derivative_high_vol | M15 | 200 | 0.80 | 0.2704 | 0.0828 | 0.9846 | 1.0674 | 80.86 |
-| 7 | derivative_high_vol | M15 | 200 | 0.80 | 0.1330 | 0.0807 | 0.9964 | 1.0771 | 81.82 |
-| 8 | derivative_high_vol | M15 | 200 | 0.80 | 0.4047 | 0.0801 | 1.0023 | 1.0824 | 80.92 |
-| 9 | derivative_high_vol | M15 | 200 | 0.80 | 0.2895 | 0.0741 | 0.9735 | 1.0476 | 81.82 |
-| 10 | derivative_high_vol | M5 | 50 | 0.80 | 0.0232 | 0.0701 | 0.9601 | 1.0302 | 71.45 |
+| 1 | derivative_high_vol | M15 | 200 | 0.80 | 0.4483 | 0.1367 | 0.8470 | 0.9837 | 80.86 |
+| 2 | derivative_high_vol | M15 | 200 | 0.80 | 0.3657 | 0.1331 | 0.8561 | 0.9892 | 81.82 |
+| 3 | derivative_high_vol | M15 | 100 | 0.80 | 0.3202 | 0.1147 | 0.8470 | 0.9617 | 81.81 |
+| 4 | derivative_high_vol | M15 | 200 | 0.80 | 0.2997 | 0.1141 | 0.8639 | 0.9780 | 80.86 |
+| 5 | derivative_high_vol | M15 | 200 | 0.80 | 0.3341 | 0.1141 | 0.8559 | 0.9700 | 81.67 |
+| 6 | derivative_high_vol | M15 | 100 | 0.70 | 0.3527 | 0.1137 | 0.8639 | 0.9776 | 71.68 |
+| 7 | derivative_high_vol | M5 | 200 | 0.70 | 0.1131 | 0.1132 | 0.7308 | 0.8440 | 62.53 |
+| 8 | derivative_high_vol | M15 | 200 | 0.80 | 0.1786 | 0.1131 | 0.8532 | 0.9663 | 81.82 |
+| 9 | derivative_high_vol | M5 | 100 | 0.80 | 0.1140 | 0.1121 | 0.7521 | 0.8642 | 72.67 |
+| 10 | derivative_high_vol | M5 | 200 | 0.70 | 0.0996 | 0.1113 | 0.7544 | 0.8657 | 62.53 |

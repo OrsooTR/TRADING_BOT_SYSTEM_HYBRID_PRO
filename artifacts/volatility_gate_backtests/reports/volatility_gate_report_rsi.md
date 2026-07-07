@@ -8,7 +8,7 @@
 - [[../../../Pipeline_01/04_BACKTEST/INDEX]]
 - [[../../../Pipeline_01/09_LOGS/esperimenti]]
 
-- Generated: 2026-05-08 09:32:18 UTC
+- Generated: 2026-07-07 18:26:08 UTC
 - Train: 2020
 - OOS: 2021-2025
 - Gate implementation: rolling ATR(14) quantile thresholds (percentile proxy) with no-trade in the middle zone
@@ -24,20 +24,20 @@
 - Threshold: 0.20
 - OOS delta PF: inf
 - OOS gated PF: inf
-- OOS base PF: 0.7943
+- OOS base PF: 0.7160
 - OOS trade reduction: 99.66%
 
 ## Top 10
 
 | Rank | Family | TF | Lkbk | Thr | Train dPF | OOS dPF | OOS Base PF | OOS Gated PF | OOS Trade Red % |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | rsi_low_vol | M5 | 50 | 0.20 | -2.4286 | inf | 0.7943 | inf | 99.66 |
-| 2 | rsi_low_vol | M5 | 100 | 0.20 | -2.4286 | inf | 0.7943 | inf | 99.32 |
-| 3 | rsi_low_vol | M5 | 50 | 0.20 | -1.8947 | inf | 0.9638 | inf | 99.66 |
-| 4 | rsi_low_vol | M5 | 50 | 0.20 | -1.1667 | inf | 1.0702 | inf | 99.66 |
-| 5 | rsi_low_vol | M5 | 200 | 0.20 | -0.9600 | 4.9107 | 1.0893 | 6.0000 | 98.29 |
-| 6 | rsi_low_vol | M5 | 200 | 0.20 | -0.8750 | 3.3962 | 1.1038 | 4.5000 | 98.29 |
-| 7 | rsi_low_vol | M5 | 50 | 0.30 | -2.4286 | 3.2057 | 0.7943 | 4.0000 | 98.98 |
-| 8 | rsi_low_vol | M15 | 50 | 0.30 | 0.0000 | 3.1163 | 0.8837 | 4.0000 | 98.21 |
-| 9 | rsi_low_vol | M15 | 200 | 0.20 | -0.8491 | 3.0160 | 0.9840 | 4.0000 | 98.60 |
-| 10 | rsi_low_vol | M5 | 100 | 0.20 | -1.1667 | 2.9298 | 1.0702 | 4.0000 | 99.32 |
+| 1 | rsi_low_vol | M5 | 50 | 0.20 | -2.1663 | inf | 0.7160 | inf | 99.66 |
+| 2 | rsi_low_vol | M5 | 100 | 0.20 | -2.1663 | inf | 0.7160 | inf | 99.32 |
+| 3 | rsi_low_vol | M5 | 50 | 0.20 | -1.7157 | inf | 0.8632 | inf | 99.66 |
+| 4 | rsi_low_vol | M5 | 50 | 0.20 | -1.0596 | inf | 0.9933 | inf | 99.66 |
+| 5 | rsi_low_vol | M5 | 200 | 0.20 | -0.8731 | 3.8727 | 1.0296 | 4.9023 | 98.29 |
+| 6 | rsi_low_vol | M15 | 50 | 0.30 | 0.0000 | 2.7759 | 0.9806 | 3.7565 | 98.21 |
+| 7 | rsi_low_vol | M5 | 50 | 0.30 | -2.1663 | 2.7564 | 0.7160 | 3.4724 | 98.98 |
+| 8 | rsi_low_vol | M5 | 200 | 0.20 | -0.7896 | 2.6250 | 0.9978 | 3.6228 | 98.29 |
+| 9 | rsi_low_vol | M5 | 50 | 0.20 | -0.8731 | 2.5847 | 1.0296 | 3.6143 | 98.63 |
+| 10 | rsi_low_vol | M15 | 200 | 0.20 | -0.8046 | 2.5259 | 0.9295 | 3.4554 | 98.60 |

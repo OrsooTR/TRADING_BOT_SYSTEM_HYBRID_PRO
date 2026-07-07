@@ -1,0 +1,26 @@
+name: CI — smoke test del motore
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installa dipendenze
+        run: pip install numpy pandas
+
+      - name: Compila tutti gli script
+        run: |
+          python -m py_compile scripts/*.py src/derivatives_bt/*.py src/fft_bt/*.py
+
+      - name: Smoke test del simulatore
+        run: python tests/test_smoke.py

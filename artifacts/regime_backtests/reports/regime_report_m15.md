@@ -3,7 +3,7 @@
 - [[../../../Pipeline_01/04_BACKTEST/INDEX]]
 - [[../../../Pipeline_01/03_STRATEGIES/IDEAS/fft_spectral_regime_filter]]
 
-- Generated: 2026-05-11 07:45:38 UTC  |  Combos: 192
+- Generated: 2026-07-07 18:22:52 UTC  |  Combos: 192
 - Train: 2020  |  OOS: 2021-2025
 
 ## Logica
@@ -15,20 +15,20 @@
 
 ## Best setup filtrato
 - RSI in noise | N=128 delta=0.08
-- Session=london | OOS PF=1.224
-- OOS DD=20.1%  | PF Gain vs baseline=0.176
+- Session=newyork | OOS PF=1.220
+- OOS DD=19.1%  | PF Gain vs baseline=0.204
 
 ## Top 10 filtrati
 
 | # | Strat | Regime | N | Delta | Session | Train PF | OOS PF | OOS DD% | PF Gain |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | rsi | noise | 128 | 0.08 | london | 1.046 | 1.224 | 20.1 | +0.176 |
-| 2 | rsi | noise | 128 | 0.08 | london | 1.046 | 1.224 | 20.1 | +0.176 |
-| 3 | rsi | noise | 128 | 0.03 | london | 1.153 | 1.177 | 24.2 | +0.129 |
-| 4 | rsi | noise | 128 | 0.03 | london | 1.153 | 1.177 | 24.2 | +0.129 |
-| 5 | rsi | noise | 128 | 0.05 | london | 0.923 | 1.155 | 22.0 | +0.107 |
-| 6 | rsi | noise | 128 | 0.05 | london | 0.923 | 1.155 | 22.0 | +0.107 |
-| 7 | derivative | cycle | 64 | 0.03 | asian | 0.975 | 1.065 | 66.7 | +0.027 |
-| 8 | derivative | cycle | 64 | 0.03 | asian | 0.963 | 1.058 | 67.0 | +0.020 |
-| 9 | derivative | cycle | 128 | 0.03 | asian | 0.941 | 1.040 | 80.4 | +0.000 |
-| 10 | derivative | cycle | 128 | 0.05 | asian | 0.924 | 1.038 | 76.2 | -0.002 |
+| 1 | rsi | noise | 128 | 0.08 | newyork | 1.137 | 1.220 | 19.1 | +0.204 |
+| 2 | rsi | noise | 128 | 0.08 | newyork | 1.137 | 1.220 | 19.1 | +0.204 |
+| 3 | rsi | noise | 128 | 0.03 | newyork | 1.145 | 1.185 | 23.0 | +0.171 |
+| 4 | rsi | noise | 128 | 0.03 | newyork | 1.145 | 1.185 | 23.0 | +0.171 |
+| 5 | rsi | noise | 128 | 0.05 | newyork | 0.969 | 1.164 | 21.1 | +0.149 |
+| 6 | rsi | noise | 128 | 0.05 | newyork | 0.969 | 1.164 | 21.1 | +0.149 |
+| 7 | rsi | noise | 128 | 0.08 | london | 0.952 | 1.022 | 25.9 | +0.125 |
+| 8 | rsi | noise | 128 | 0.08 | london | 0.952 | 1.022 | 25.9 | +0.125 |
+| 9 | rsi | noise | 128 | 0.03 | london | 0.992 | 1.015 | 31.3 | +0.118 |
+| 10 | rsi | noise | 128 | 0.03 | london | 0.992 | 1.015 | 31.3 | +0.118 |

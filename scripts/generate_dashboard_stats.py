@@ -9,8 +9,11 @@ Il JSON alimenta la dashboard statica in docs/index.html.
 
 from __future__ import annotations
 
+import csv
 import json
+import math
 import re
+import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -180,6 +183,111 @@ def parse_tested_strategies():
     return {"tested": tested, "ideas": ideas}
 
 
+# colonne metrica riconosciute nei CSV dei risultati (nomi alternativi per famiglia)
+METRIC_ALIASES = {
+    "oos_pf": ["oos_profit_factor", "oos_gated_profit_factor"],
+    "train_pf": ["train_profit_factor", "train_gated_profit_factor"],
+    "oos_dd": ["oos_max_drawdown_pct", "oos_gated_max_drawdown_pct"],
+    "oos_trades": ["oos_trades", "oos_gated_trades"],
+    "oos_win_rate": ["oos_win_rate", "oos_gated_win_rate"],
+    "oos_pnl": ["oos_pnl_pct", "oos_gated_pnl_pct"],
+}
+MAX_POINTS = 250
+
+
+def _num(v):
+    """Converte in float finito, altrimenti None (JSON non ammette inf/nan)."""
+    try:
+        f = float(v)
+    except (TypeError, ValueError):
+        return None
+    return f if math.isfinite(f) else None
+
+
+def analyze_results_csv(family_dir: Path):
+    """Estrae punti e riassunto dal CSV principale dei risultati di una famiglia."""
+    data_dir = family_dir / "data"
+    if not data_dir.is_dir():
+        return None
+    candidates = sorted(data_dir.glob("*_all.csv")) or sorted(
+        (f for f in data_dir.glob("*.csv") if "combined" not in f.name),
+        key=lambda f: f.stat().st_size, reverse=True,
+    )
+    if not candidates:
+        return None
+    csv_path = candidates[0]
+    try:
+        with csv_path.open(encoding="utf-8", errors="replace", newline="") as fh:
+            reader = csv.DictReader(fh)
+            fields = reader.fieldnames or []
+            keymap = {}
+            for name, aliases in METRIC_ALIASES.items():
+                for a in aliases:
+                    if a in fields:
+                        keymap[name] = a
+                        break
+            if "oos_pf" not in keymap:
+                return None
+            metric_cols = set(keymap.values())
+            param_cols = [
+                f for f in fields
+                if not f.startswith(("train_", "oos_", "total_"))
+                and f not in metric_cols and f != "avg_bars"
+            ]
+            rows = []
+            for r in reader:
+                point = {name: _num(r.get(col)) for name, col in keymap.items()}
+                if point["oos_pf"] is None:
+                    continue
+                point["params"] = {p: r.get(p) for p in param_cols}
+                rows.append(point)
+    except OSError:
+        return None
+    if not rows:
+        return None
+    rows.sort(key=lambda x: x["oos_pf"], reverse=True)
+    pfs = [r["oos_pf"] for r in rows]
+    n = len(pfs)
+    # il "best" deve avere un minimo di trade OOS per non premiare combo degeneri
+    MIN_TRADES = 30
+    best = next((r for r in rows if (r.get("oos_trades") or 0) >= MIN_TRADES), rows[0])
+    summary = {
+        "combos": n,
+        "best": best,
+        "median_pf": round(pfs[n // 2], 4),
+        "pct_pf_above_1": round(sum(1 for p in pfs if p > 1) / n * 100, 1),
+        "pct_pf_above_1_3": round(sum(1 for p in pfs if p > 1.3) / n * 100, 1),
+        "source_csv": csv_path.name,
+    }
+    # top per PF + campionamento uniforme del resto, per scatter rappresentativi
+    # (il best selezionato sta sempre in testa: il client evidenzia points[0])
+    top = [best] + [r for r in rows[: MAX_POINTS // 2] if r is not best]
+    rest = rows[MAX_POINTS // 2:]
+    step = max(1, len(rest) // (MAX_POINTS - len(top)))
+    points = top + rest[::step]
+    return {"param_cols": param_cols, "summary": summary, "points": points[:MAX_POINTS]}
+
+
+def git_commits(limit=30):
+    """Feed commit generato in build: evita il rate-limit dell'API GitHub lato client."""
+    try:
+        out = subprocess.run(
+            ["git", "log", f"-{limit}", "--pretty=format:%H%x1f%an%x1f%aI%x1f%s"],
+            cwd=ROOT, capture_output=True, text=True, encoding="utf-8", timeout=30,
+        )
+        if out.returncode != 0:
+            return []
+        commits = []
+        for line in out.stdout.splitlines():
+            parts = line.split("\x1f")
+            if len(parts) == 4:
+                commits.append({"sha": parts[0], "author": parts[1],
+                                "date": parts[2], "message": parts[3]})
+        return commits
+    except (OSError, subprocess.SubprocessError):
+        return []
+
+
 def scan_backtests():
     """Riassume ogni famiglia di backtest in artifacts/."""
     artifacts = ROOT / "artifacts"
@@ -201,6 +309,7 @@ def scan_backtests():
                 "reports": [f"artifacts/{d.name}/reports/{f.name}" for f in sorted(report_files)],
                 "size": sum(f.stat().st_size for f in all_files),
                 "last_run": datetime.fromtimestamp(last, tz=timezone.utc).isoformat() if last else None,
+                "analysis": analyze_results_csv(d),
             }
         )
     return families
@@ -215,6 +324,7 @@ def main():
         "backlog": parse_backlog(),
         "strategies": parse_tested_strategies(),
         "backtests": scan_backtests(),
+        "commits": git_commits(),
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(stats, indent=2, ensure_ascii=False), encoding="utf-8")

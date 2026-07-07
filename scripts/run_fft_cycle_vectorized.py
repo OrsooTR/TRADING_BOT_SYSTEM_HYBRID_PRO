@@ -17,7 +17,7 @@ from pathlib import Path
 from zipfile import ZipFile
 from itertools import product
 from numpy.lib.stride_tricks import sliding_window_view
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 
 ROOT = Path(__file__).resolve().parent.parent
 HISTDATA_DIR = Path(os.environ.get("HISTDATA_DIR", ROOT / "data" / "histdata"))
@@ -25,6 +25,7 @@ ZIPS = [HISTDATA_DIR / f"HISTDATA_COM_ASCII_EURUSD_M1{y}.zip"
         for y in [2020,2021,2022,2023,2024,2025]]
 OUT_DIR = ROOT / "artifacts" / "fft_cycle_backtests" / "data"
 RPT_DIR = ROOT / "artifacts" / "fft_cycle_backtests" / "reports"
+COMBINED_CSV = ROOT / "artifacts" / "derivative_backtests" / "data" / "eurusd_m1_2020_2025_combined.csv"
 
 # Grid
 FFT_WINDOWS    = {"M1":[64], "M5":[64,128], "M15":[64,128,256]}
@@ -40,11 +41,18 @@ SESSION_H = {"all":(0,24), "london":(7,16), "newyork":(13,21), "asian":(0,8)}
 TRAIN_S, TRAIN_E = "2020-01-01", "2020-12-31 23:59:59"
 OOS_S,   OOS_E   = "2021-01-01", "2025-12-31 23:59:59"
 RISK        = 0.01
+SPREAD_PIP  = float(os.environ.get("SPREAD_PIP", "0.5"))  # costo spread round-trip in pip
+SPREAD      = SPREAD_PIP * 1e-4
 MAX_HOLD_TF = {"M1":100, "M5":300, "M15":200}
 PARAM_COLS  = ["fft_window","low_pct","high_pct","min_period","sl_atr_mult","rr","session_label"]
 
 # ── data ──────────────────────────────────────────────────────────────────────
 def load_m1(zips):
+    if not all(z.exists() for z in zips):
+        # fallback: CSV combinato locale (stesso formato EST degli zip HistData)
+        df = pd.read_csv(COMBINED_CSV, parse_dates=["datetime"], index_col="datetime")
+        df = df.sort_index()
+        return df[~df.index.duplicated()]
     frames=[]
     for z in zips:
         with ZipFile(z) as zf:
@@ -181,7 +189,7 @@ def compute_fft_signals(log_ret: np.ndarray, N: int,
     return slope_full, snr_full, period_full
 
 # ── simulation (identical to previous scripts) ────────────────────────────────
-def sim_and_metrics(entry_bars, directions, ep, sl_d, rr, high, low, max_hold=200):
+def sim_and_metrics(entry_bars, directions, ep, sl_d, rr, high, low, close, max_hold=200):
     n=len(entry_bars)
     if n==0:
         return {"trades":0,"win_rate":0.,"profit_factor":0.,"max_drawdown_pct":0.,
@@ -200,7 +208,12 @@ def sim_and_metrics(entry_bars, directions, ep, sl_d, rr, high, low, max_hold=20
     sl_b=np.where(sl_hit.any(1),np.argmax(sl_hit,1),mj)
     # tie-break pessimistico: se TP e SL cadono nella stessa barra conta lo SL
     win=(tp_b<sl_b)&(tp_b<mj); lose=(sl_b<=tp_b)&(sl_b<mj)
-    pnl_r=np.where(win,rr,np.where(lose,-1.,0.))
+    # timeout: chiusura mark-to-market sull'ultima barra simulata invece di 0R
+    last_bar=np.minimum(entry_bars+mj-1,N-1)
+    mtm_r=directions*(close[last_bar]-ep)/np.maximum(sl_d,1e-12)
+    pnl_r=np.where(win,rr,np.where(lose,-1.,np.clip(mtm_r,-1.,rr)))
+    # costo spread per trade espresso in R (spread / distanza SL)
+    pnl_r=pnl_r-SPREAD/np.maximum(sl_d,1e-12)
     exit_b=np.where(win,tp_b,np.where(lose,sl_b,mj))
     eq=1.; peak=1.; mx_dd=0.
     for r in pnl_r:
@@ -265,7 +278,7 @@ def run_fft_grid(df: pd.DataFrame, tf: str) -> list[dict]:
         all_i=all_i[order]; all_d=all_d[order]
         eb=np.minimum(all_i+1, N_bars-1)
         ep=op[eb]; sl_d=sl_m*atr[all_i]
-        m=sim_and_metrics(eb,all_d,ep,sl_d,rr,high,low,max_hold)
+        m=sim_and_metrics(eb,all_d,ep,sl_d,rr,high,low,close,max_hold)
         results.append({**dict(zip(PARAM_COLS,[N,lp,hp,min_p,sl_m,rr,sess])),**m})
 
     return results
@@ -326,7 +339,7 @@ def write_report(label, df, ts):
 # ── main ───────────────────────────────────────────────────────────────────────
 def main():
     OUT_DIR.mkdir(parents=True,exist_ok=True)
-    ts=datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
+    ts=datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
     print("Loading M1 data..."); t0=time.time()
     m1=load_m1(ZIPS)
     print(f"  {len(m1)} bars in {time.time()-t0:.1f}s")

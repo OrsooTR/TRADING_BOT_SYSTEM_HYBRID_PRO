@@ -89,9 +89,22 @@ gli eventi delle ultime ~2 ore di domenica finivano nella settimana sbagliata. U
 
 ## Conseguenza operativa
 
-⚠️ **I numeri storici in `artifacts/` (PF, win-rate, classifiche di sessione) sono
-sovrastimati/mal attribuiti** per via dei bug #1 e #2. Prima di costruire l'ibrido #17:
-1. rigenerare i backtest dei moduli chiave (#02 Derivate, #03 RSI, #15 Volatility Gate)
-   con il codice corretto;
-2. riverificare la classifica di robustezza in [[../11_MEMORY/PROJECT_STATE]];
-3. aggiornare le note TESTED con i numeri nuovi.
+⚠️ **I numeri storici in `artifacts/` (PF, win-rate, classifiche di sessione) erano
+sovrastimati/mal attribuiti** per via dei bug #1 e #2.
+
+**AGGIORNAMENTO (sera del 2026-07-07):** le famiglie vettoriali sono state RIGENERATE col
+motore corretto, che ora include anche:
+- costo spread per trade (`SPREAD_PIP`, default 0.5 pip)
+- chiusura mark-to-market dei trade in timeout (non più 0R) → risolve il punto aperto n.1
+- fallback dati dal CSV combinato locale (gli zip HistData non servono più)
+- smoke test del motore in `tests/test_smoke.py`, eseguito in CI ad ogni push
+
+Risultati rigenerati in `artifacts/` e visibili sulla dashboard (tab Confronto e
+Ottimizzazione). Le famiglie basate su backtrader (Derivative full, VWAP, FFT Clock Filter
+grid) NON sono state rigenerate (ore di calcolo): restano coi numeri vecchi finché non
+vengono rilanciate.
+
+Sintesi onesta post-fix: quasi nessuna baseline standalone sopravvive ai costi
+(PF < 1 su M1/M5); il valore emerge sui **filtri di regime su M15** — vedi
+[[report_giornata_2026-07-07]] per i numeri e [[../11_MEMORY/PROJECT_STATE]] per la
+lettura strategica.

@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import os
 import sys
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from itertools import product
 from pathlib import Path
 
@@ -23,11 +23,14 @@ REPORT_ROOT = ARTIFACT_ROOT / "reports"
 HISTDATA_DIR = Path(os.environ.get("HISTDATA_DIR", PROJECT_ROOT / "data" / "histdata"))
 DEFAULT_ZIPS = [HISTDATA_DIR / f"HISTDATA_COM_ASCII_EURUSD_M1{y}.zip"
                 for y in [2020, 2021, 2022, 2023, 2024, 2025]]
+COMBINED_CSV = PROJECT_ROOT / "artifacts" / "derivative_backtests" / "data" / "eurusd_m1_2020_2025_combined.csv"
 
 TRAIN_S, TRAIN_E = "2020-01-01", "2020-12-31 23:59:59"
 OOS_S, OOS_E = "2021-01-01", "2025-12-31 23:59:59"
 TIMEFRAMES = ["M1", "M5", "M15"]
 RISK = 0.01
+SPREAD_PIP = float(os.environ.get("SPREAD_PIP", "0.5"))  # costo spread round-trip in pip
+SPREAD = SPREAD_PIP * 1e-4
 MAX_HOLD_PER_TF = {"M1": 100, "M5": 300, "M15": 200}
 VOL_LOOKBACKS = [50, 100, 200]
 LOW_VOL_PCTS = [0.20, 0.30]
@@ -82,6 +85,15 @@ RSI_PARAM_COLS = [
 ]
 
 
+def load_m1(zip_paths: list[str | Path]) -> pd.DataFrame:
+    if not all(Path(path).exists() for path in zip_paths):
+        # fallback: CSV combinato locale (stesso formato EST degli zip HistData)
+        frame = pd.read_csv(COMBINED_CSV, parse_dates=["datetime"], index_col="datetime")
+        frame = frame.sort_index()
+        return frame[~frame.index.duplicated(keep="last")]
+    return load_histdata_zips(zip_paths)
+
+
 def calc_atr(frame: pd.DataFrame, period: int = 14) -> np.ndarray:
     high = frame["high"].to_numpy(dtype=float)
     low = frame["low"].to_numpy(dtype=float)
@@ -134,6 +146,7 @@ def sim_and_metrics(
     rr: float,
     high: np.ndarray,
     low: np.ndarray,
+    close: np.ndarray,
     max_hold: int,
 ) -> dict[str, float | int]:
     count = len(entry_bars)
@@ -175,7 +188,12 @@ def sim_and_metrics(
     # tie-break pessimistico: se TP e SL cadono nella stessa barra conta lo SL
     is_win = (tp_bar < sl_bar) & (tp_bar < horizon)
     is_loss = (sl_bar <= tp_bar) & (sl_bar < horizon)
-    pnl_r = np.where(is_win, rr, np.where(is_loss, -1.0, 0.0))
+    # timeout: chiusura mark-to-market sull'ultima barra simulata invece di 0R
+    last_bar = np.minimum(entry_bars + horizon - 1, total_bars - 1)
+    mtm_r = directions * (close[last_bar] - entry_price) / np.maximum(stop_distance, 1e-12)
+    pnl_r = np.where(is_win, rr, np.where(is_loss, -1.0, np.clip(mtm_r, -1.0, rr)))
+    # costo spread per trade espresso in R (spread / distanza SL)
+    pnl_r = pnl_r - SPREAD / np.maximum(stop_distance, 1e-12)
     exit_bar = np.where(is_win, tp_bar, np.where(is_loss, sl_bar, horizon))
 
     equity = 1.0
@@ -292,6 +310,7 @@ def evaluate_signal_set(
     open_prices = frame["open"].to_numpy(dtype=float)
     high = frame["high"].to_numpy(dtype=float)
     low = frame["low"].to_numpy(dtype=float)
+    close = frame["close"].to_numpy(dtype=float)
     total_bars = len(frame)
 
     long_mask = long_sig.copy()
@@ -314,6 +333,7 @@ def evaluate_signal_set(
             rr=rr,
             high=high,
             low=low,
+            close=close,
             max_hold=max_hold,
         )
 
@@ -332,6 +352,7 @@ def evaluate_signal_set(
         rr=rr,
         high=high,
         low=low,
+        close=close,
         max_hold=max_hold,
     )
 
@@ -587,10 +608,10 @@ def robust_subset(frame: pd.DataFrame) -> pd.DataFrame:
 def main() -> None:
     DATA_ROOT.mkdir(parents=True, exist_ok=True)
     REPORT_ROOT.mkdir(parents=True, exist_ok=True)
-    generated_at = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
+    generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
 
     print("Loading EURUSD M1 zip data...")
-    m1 = load_histdata_zips(DEFAULT_ZIPS)
+    m1 = load_m1(DEFAULT_ZIPS)
     print(f"Loaded {len(m1)} M1 bars.")
 
     derivative_outputs: list[pd.DataFrame] = []
